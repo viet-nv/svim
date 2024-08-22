@@ -1,7 +1,7 @@
 local M = {
 	"nvim-telescope/telescope.nvim",
 	event = "Bufenter",
-	cmd = { "Telescope" },
+	cmd = { "Telescope" }, -- Lazy load on this command
 	dependencies = {
 		{
 			"nvim-lua/plenary.nvim",
@@ -24,7 +24,7 @@ M.opts = {
 		prompt_prefix = " ",
 		selection_caret = " ",
 		path_display = { "smart" },
-		file_ignore_patterns = { ".git/", "node_modules" },
+		-- file_ignore_patterns = { ".git/", "node_modules" },
 		mappings = {
 			i = {
 				["<Down>"] = actions.move_selection_next,
