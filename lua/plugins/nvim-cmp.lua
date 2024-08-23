@@ -38,6 +38,7 @@ return { -- Autocompletion
 		-- See `:help cmp`
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
+		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 		luasnip.config.setup({})
 
 		cmp.setup({
@@ -54,9 +55,9 @@ return { -- Autocompletion
 			-- No, but seriously. Please read `:help ins-completion`, it is really good!
 			mapping = cmp.mapping.preset.insert({
 				-- Select the [n]ext item
-				["<C-n>"] = cmp.mapping.select_next_item(),
+				["<C-j>"] = cmp.mapping.select_next_item(),
 				-- Select the [p]revious item
-				["<C-p>"] = cmp.mapping.select_prev_item(),
+				["<C-k>"] = cmp.mapping.select_prev_item(),
 
 				-- Scroll the documentation window [b]ack / [f]orward
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -69,7 +70,7 @@ return { -- Autocompletion
 
 				-- If you prefer more traditional completion keymaps,
 				-- you can uncomment the following lines
-				--['<CR>'] = cmp.mapping.confirm { select = true },
+				["<CR>"] = cmp.mapping.confirm({ select = true }),
 				--['<Tab>'] = cmp.mapping.select_next_item(),
 				--['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
@@ -106,10 +107,15 @@ return { -- Autocompletion
 					-- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
 					group_index = 0,
 				},
-				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
-				{ name = "path" },
+
+				-- Copilot Source
+				{ name = "copilot", group_index = 2 },
+				{ name = "nvim_lsp", group_index = 2 },
+				{ name = "luasnip", group_index = 2 },
+				{ name = "path", group_index = 2 },
 			},
 		})
+		-- Add this to integrate autopairs with nvim-cmp
+		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 	end,
 }
