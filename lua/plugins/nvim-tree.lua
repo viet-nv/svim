@@ -30,15 +30,15 @@ return {
 			},
 		})
 		-- Open nvim-tree on startup
-		vim.api.nvim_create_autocmd("VimEnter", {
-			pattern = "*",
-			callback = function()
-				if #vim.api.nvim_list_wins() == 1 and vim.api.nvim_buf_get_name(0) == "" then
-					local current_win = vim.api.nvim_get_current_win()
-					require("nvim-tree.api").tree.open()
-					vim.api.nvim_set_current_win(current_win)
-				end
-			end,
-		})
+		-- 	vim.api.nvim_create_autocmd("VimEnter", {
+		-- 		pattern = "*",
+		-- 		callback = function()
+		-- 			if #vim.api.nvim_list_wins() == 1 and vim.api.nvim_buf_get_name(0) == "" then
+		-- 				local current_win = vim.api.nvim_get_current_win()
+		-- 				require("nvim-tree.api").tree.open()
+		-- 				vim.api.nvim_set_current_win(current_win)
+		-- 			end
+		-- 		end,
+		-- 	})
 	end,
 }
