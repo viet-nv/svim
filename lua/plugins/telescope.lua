@@ -19,6 +19,15 @@ local M = {
 
 local actions = require("telescope.actions")
 
+local function filenameFirst(_, path)
+	local tail = vim.fs.basename(path)
+	local parent = vim.fs.dirname(path)
+	if parent == "." then
+		return tail
+	end
+	return string.format("%s\t\t%s", tail, parent)
+end
+
 M.opts = {
 	defaults = {
 		prompt_prefix = " ",
@@ -40,6 +49,20 @@ M.opts = {
 			-- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
 			filetypes = { "png", "jpg", "jpeg", "webp", "pdf", "gif", "svg", "mp4" },
 			find_cmd = "rg", -- find command (defaults to `fd`)
+		},
+	},
+	pickers = {
+		find_files = {
+			path_display = filenameFirst,
+		},
+		grep_string = {
+			path_display = filenameFirst,
+		},
+		oldfiles = {
+			path_display = filenameFirst,
+		},
+		live_grep = {
+			path_display = filenameFirst,
 		},
 	},
 }
