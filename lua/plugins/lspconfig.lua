@@ -60,7 +60,32 @@ return {
 			-- clangd = {},
 			-- gopls = {},
 			-- pyright = {},
-			rust_analyzer = {},
+			rust_analyzer = {
+				settings = {
+					["rust-analyzer"] = {
+						checkOnSave = {
+							command = "clippy",
+						},
+						cargo = {
+							allFeatures = true,
+						},
+						procMacro = {
+							enable = true,
+						},
+						diagnostics = {
+							enable = true,
+							experimental = {
+								enable = true,
+							},
+						},
+						inlayHints = {
+							chainingHints = true,
+							parameterHints = true,
+							typeHints = true,
+						},
+					},
+				},
+			},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 			--
 			-- Some languages (like typescript) have entire language plugins that can be useful:
@@ -84,6 +109,8 @@ return {
 					},
 				},
 			},
+
+			solidity_ls = {},
 		}
 
 		require("mason").setup()
@@ -94,8 +121,13 @@ return {
 		vim.list_extend(ensure_installed, {
 			"stylua", -- Used to format Lua code
 			"ts_ls",
+			"solidity_ls",
+			"rust_analyzer",
 		})
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+		require("mason-tool-installer").setup({
+			ensure_installed = ensure_installed,
+			automatic_installation = true,
+		})
 
 		require("mason-lspconfig").setup({
 			handlers = {

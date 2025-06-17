@@ -34,6 +34,7 @@ return { -- Autoformat
 			typescript = { "prettierd" },
 			javascriptreact = { "prettierd" },
 			typescriptreact = { "prettierd" },
+			solidity = { "prettier", lsp_fallback = true },
 		},
 		format_after_save = {
 			lsp_format = "fallback",

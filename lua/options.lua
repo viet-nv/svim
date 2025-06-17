@@ -60,3 +60,6 @@ vim.opt.showcmd = false -- hide (partial) command in the last line of the screen
 vim.opt.wrap = false -- display lines as one long line
 
 vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
+
+-- views can only be fully collapsed with the global statusline
+vim.opt.laststatus = 3
