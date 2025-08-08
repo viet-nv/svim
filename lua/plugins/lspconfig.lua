@@ -58,7 +58,6 @@ return {
 
 		local servers = {
 			-- clangd = {},
-			-- gopls = {},
 			-- pyright = {},
 			rust_analyzer = {
 				settings = {
@@ -111,6 +110,7 @@ return {
 			},
 
 			solidity_ls = {},
+			gopls = {},
 		}
 
 		require("mason").setup()
@@ -123,6 +123,7 @@ return {
 			"ts_ls",
 			"solidity_ls",
 			"rust_analyzer",
+			"gopls",
 		})
 		require("mason-tool-installer").setup({
 			ensure_installed = ensure_installed,
