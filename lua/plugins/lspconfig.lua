@@ -7,8 +7,21 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 		-- Useful status updates for LSP.
-		-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-		{ "j-hui/fidget.nvim", opts = {} },
+		{
+			"j-hui/fidget.nvim",
+			opts = {
+				notification = {
+					window = {
+						avoid = { "NvimTree" },
+					},
+				},
+				integration = {
+					["nvim-tree"] = {
+						enable = false, -- Disable the deprecated integration
+					},
+				},
+			},
+		},
 
 		-- Allows extra capabilities provided by nvim-cmp
 		"hrsh7th/cmp-nvim-lsp",
@@ -22,7 +35,7 @@ return {
 				end
 
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
-				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+				if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
 					local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
 					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 						buffer = event.buf,
@@ -131,6 +144,9 @@ return {
 		})
 
 		require("mason-lspconfig").setup({
+			ensure_installed = vim.tbl_keys(servers),
+			-- automatic_installation = false,
+			-- automatic_enable = false,
 			handlers = {
 				function(server_name)
 					local server = servers[server_name] or {}
