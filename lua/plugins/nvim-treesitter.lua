@@ -1,6 +1,9 @@
 -- Highlight, edit, and navigate code
 return {
 	"nvim-treesitter/nvim-treesitter",
+	-- Pin to the legacy `master` API: this config uses `require('nvim-treesitter.configs').setup()`
+	-- with ensure_installed/highlight/indent, which the new `main`-branch rewrite removed.
+	branch = "master",
 	build = ":TSUpdate",
 	opts = {
 		ensure_installed = {

@@ -17,8 +17,6 @@ local M = {
 	},
 }
 
-local actions = require("telescope.actions")
-
 local function filenameFirst(_, path)
 	local tail = vim.fs.basename(path)
 	local parent = vim.fs.dirname(path)
@@ -28,43 +26,46 @@ local function filenameFirst(_, path)
 	return string.format("%s\t\t%s", tail, parent)
 end
 
-M.opts = {
-	defaults = {
-		prompt_prefix = " ",
-		selection_caret = " ",
-		path_display = { "smart" },
-		-- file_ignore_patterns = { ".git/", "node_modules" },
-		mappings = {
-			i = {
-				["<Down>"] = actions.move_selection_next,
-				["<Up>"] = actions.move_selection_previous,
-				["<C-j>"] = actions.move_selection_next,
-				["<C-k>"] = actions.move_selection_previous,
+function M.opts()
+	local actions = require("telescope.actions")
+	return {
+		defaults = {
+			prompt_prefix = " ",
+			selection_caret = " ",
+			path_display = { "smart" },
+			-- file_ignore_patterns = { ".git/", "node_modules" },
+			mappings = {
+				i = {
+					["<Down>"] = actions.move_selection_next,
+					["<Up>"] = actions.move_selection_previous,
+					["<C-j>"] = actions.move_selection_next,
+					["<C-k>"] = actions.move_selection_previous,
+				},
 			},
 		},
-	},
-	extensions = {
-		media_files = {
-			-- filetypes whitelist
-			-- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-			filetypes = { "png", "jpg", "jpeg", "webp", "pdf", "gif", "svg", "mp4" },
-			find_cmd = "rg", -- find command (defaults to `fd`)
+		extensions = {
+			media_files = {
+				-- filetypes whitelist
+				-- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+				filetypes = { "png", "jpg", "jpeg", "webp", "pdf", "gif", "svg", "mp4" },
+				find_cmd = "rg", -- find command (defaults to `fd`)
+			},
 		},
-	},
-	pickers = {
-		find_files = {
-			path_display = filenameFirst,
+		pickers = {
+			find_files = {
+				path_display = filenameFirst,
+			},
+			grep_string = {
+				path_display = filenameFirst,
+			},
+			oldfiles = {
+				path_display = filenameFirst,
+			},
+			live_grep = {
+				path_display = filenameFirst,
+			},
 		},
-		grep_string = {
-			path_display = filenameFirst,
-		},
-		oldfiles = {
-			path_display = filenameFirst,
-		},
-		live_grep = {
-			path_display = filenameFirst,
-		},
-	},
-}
+	}
+end
 
 return M

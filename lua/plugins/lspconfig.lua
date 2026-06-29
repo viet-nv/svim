@@ -15,11 +15,6 @@ return {
 						avoid = { "NvimTree" },
 					},
 				},
-				integration = {
-					["nvim-tree"] = {
-						enable = false, -- Disable the deprecated integration
-					},
-				},
 			},
 		},
 

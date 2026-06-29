@@ -32,4 +32,6 @@ require("lazy").setup({
 	install = { colorscheme = { require("plugins.colorscheme").name } },
 	-- automatically check for plugin updates
 	checker = { enabled = true },
+	-- no plugins require luarocks; skip hererocks to avoid the install error
+	rocks = { hererocks = false },
 })
