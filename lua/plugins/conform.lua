@@ -31,9 +31,11 @@ return { -- Autoformat
 			--
 			-- You can use 'stop_after_first' to run the first available formatter from the list
 			javascript = { "prettierd", "prettier", "eslint_d", lsp_fallback = true },
-			typescript = { "prettierd" },
-			javascriptreact = { "prettierd" },
-			typescriptreact = { "prettierd" },
+			-- `prettier` runs the project's own node_modules/.bin/prettier, found from the file being edited, so each
+			-- package formats with the version its lint checks against. `prettierd` covers projects without one.
+			typescript = { "prettier", "prettierd", stop_after_first = true },
+			javascriptreact = { "prettier", "prettierd", stop_after_first = true },
+			typescriptreact = { "prettier", "prettierd", stop_after_first = true },
 			solidity = { "prettier", lsp_fallback = true },
 		},
 		format_after_save = {
